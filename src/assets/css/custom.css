@@ -1,0 +1,253 @@
+.file-upload {
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    position: relative;
+    background-color: #ffffff;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.dropzone {
+    background: white;
+    border-radius: 5px;
+    border-image: none;
+    max-width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* adding tha hangout message area */
+
+.conversation {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 300px;
+    /* header */
+    /* .messages */
+}
+
+.conversation.collapsed .messages,
+.conversation.collapsed form.say {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.conversation header {
+    display: table;
+    width: 100%;
+    background: #404040;
+    padding: 5px;
+    padding-left: 10px;
+    color: white;
+    cursor: pointer;
+    /* .icon */
+}
+
+.conversation header.has-new-messages {
+    background: #53a93f;
+}
+
+.conversation header>* {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.conversation header .hangouts-logo {
+    width: 14px;
+    height: 14px;
+}
+
+.conversation header .chating-with {
+    padding: 0 5px;
+    min-width: 199px;
+}
+
+.conversation header button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    opacity: 0.8;
+    cursor: inherit;
+}
+
+.conversation header button:hover,
+.conversation header button:active {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.conversation header .icon {
+    background-color: transparent;
+    background-image: url("https://ssl.gstatic.com/chat/babble/sprites/common-b4320ec4a0b0a6de913780928c0a2b18.png");
+}
+
+.conversation header .icon.hangouts-white {
+    background-position: -259px -427px;
+}
+
+.conversation header .icon.minimize {
+    background-position: -142px -98px;
+}
+
+.conversation header .icon.popout {
+    background-position: -167px -31px;
+}
+
+.conversation header .icon.close {
+    background-position: -425px -327px;
+}
+
+.conversation .messages {
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 10px;
+    background: #e8e8e8;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    border-width: 0 1px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    /* .message */
+}
+
+.conversation .messages .message {
+    float: left;
+    width: calc(100% - 36px);
+    min-height: 36px;
+    display: table;
+    position: relative;
+    margin-bottom: 10px;
+    /* .me */
+}
+
+.conversation .messages .message:after,
+.conversation .messages .message:before {
+    content: "";
+    display: table;
+    clear: both;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 26px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 12px 12px 0;
+    border-color: transparent #ececec transparent transparent;
+}
+
+.conversation .messages .message:after {
+    top: 1px;
+    z-index: 11;
+    border-color: transparent white transparent transparent;
+}
+
+.conversation .messages .message img {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 2px 0 0 2px;
+}
+
+.conversation .messages .message .content {
+    float: left;
+    position: relative;
+    background: white;
+    padding: 10px;
+    margin-left: 36px;
+    border: solid 1px rgba(0, 0, 0, 0.075);
+    border-bottom: solid 2px rgba(0, 0, 0, 0.15);
+}
+
+.conversation .messages .message time {
+    display: block;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.3);
+    padding-top: 10px;
+}
+
+.conversation .messages .message.me {
+    margin-left: 0;
+    margin-right: 36px;
+}
+
+.conversation .messages .message.me img {
+    top: auto;
+    left: auto;
+    bottom: 2px;
+    right: -36px;
+    border-radius: 0 2px 2px 0;
+}
+
+.conversation .messages .message.me .content {
+    float: right;
+}
+
+.conversation .messages .message.me:after,
+.conversation .messages .message.me:before {
+    top: auto;
+    left: auto;
+    bottom: 0;
+    right: -11px;
+    border-width: 12px 0 0 12px;
+    border-color: transparent transparent transparent #ececec;
+}
+
+.conversation .messages .message.me:after {
+    bottom: 2px;
+    z-index: 11;
+    border-color: transparent transparent transparent white;
+}
+
+.conversation form.say {
+    position: relative;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.conversation form.say button {
+    position: absolute;
+    top: 8px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    background-image: url("https://ssl.gstatic.com/chat/babble/sprites/common-b4320ec4a0b0a6de913780928c0a2b18.png");
+    opacity: 0.2;
+    cursor: pointer;
+}
+
+.conversation form.say button:hover {
+    opacity: 0.4;
+}
+
+.conversation form.say button.add-emoticon {
+    left: 8px;
+    background-position: 0 -183px;
+}
+
+.conversation form.say button.add-attachment {
+    right: 8px;
+    background-position: -309px -31px;
+}
+
+.conversation form.say input {
+    width: 100%;
+    border: none;
+    min-height: 34px;
+    margin: 0;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    border-bottom: none;
+    padding: 0 36px;
+}
+
+
+/* .conversation */

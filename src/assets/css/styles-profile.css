@@ -1,0 +1,12 @@
+@media (max-width: 576px) {
+  #left-column {
+    height: 300px;
+  }
+}
+
+@media (min-width: 576px) {
+  #left-column {
+    height: 100%;
+  }
+}
+
