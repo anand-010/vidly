@@ -9,6 +9,7 @@ import { NavigationComponent } from './dashboard/navigation/navigation.component
 import { AnalyticsComponent } from './dashboard/analytics/analytics.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
