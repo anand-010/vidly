@@ -1,0 +1,51 @@
+<div class="body">
+    <div class="veen">
+        <div class="login-btn splits">
+            <p>Already an user?</p>
+            <button class="active">Login</button>
+        </div>
+        <div class="rgstr-btn splits">
+            <p>Don't have an account?</p>
+            <button>Register</button>
+        </div>
+        <div class="wrapper">
+            <form id="login" tabindex="500" action="/login" method="POST">
+                <h3>Login</h3>
+                <div class="mail">
+                    <input type="mail" name="name">
+                    <label>Mail or Username</label>
+                </div>
+                <div class="passwd">
+                    <input type="password" name="password">
+                    <label>Password</label>
+                </div>
+                <div class="submit">
+                    <button class="dark">Login</button>
+                </div>
+            </form>
+            <form id="register" tabindex="502" action="/register" method="POST">
+                <h3>Register</h3>
+                <div class="name">
+                    <input type="text" name="rg_name">
+                    <label>Name</label>
+                </div>
+                <div class="mail">
+                    <input type="mail" name="rg_email">
+                    <label>Mail</label>
+                </div>
+
+                <div class="passwd">
+                    <input type="password" name="rg_password">
+                    <label>Password</label>
+                </div>
+                <div class="passwd">
+                    <input type="password" name="rg_repete">
+                    <label>repete</label>
+                </div>
+                <div class="submit">
+                    <button class="dark">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

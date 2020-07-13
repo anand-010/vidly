@@ -10,6 +10,8 @@ import { AnalyticsComponent } from './dashboard/analytics/analytics.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
+import { LoginComponent } from './other/login/login.component';
+import { InfoComponent } from './other/info/info.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ChartsModule } from 'ng2-charts';
     NavigationComponent,
     AnalyticsComponent,
     HeaderComponent,
+    LoginComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,

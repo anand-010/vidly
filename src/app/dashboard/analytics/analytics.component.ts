@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import {Chart} from 'node_modules/chart.js';
 import { from } from 'rxjs';
 import * as  ChartGeo from 'node_modules/chartjs-chart-geo';
+import { SocketService } from 'src/app/services/socket.service';
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.css']
 })
 export class AnalyticsComponent implements OnInit {
-
-  constructor() { }
+  mychart;
+  pie_chart;
+  world_map;
+  constructor(private socket : SocketService) { }
 
   ngOnInit(): void {
         // creating the chart.js
-        new Chart(document.getElementById("mychart"), {
+        this.mychart = new Chart(document.getElementById("mychart"), {
           type: 'line',
           data: {
             labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
@@ -53,7 +56,7 @@ export class AnalyticsComponent implements OnInit {
           }
         });
     
-        new Chart(document.getElementById("pie_chart"), {
+        this.pie_chart = new Chart(document.getElementById("pie_chart"), {
           type: 'pie',
           data: {
             labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
@@ -78,7 +81,7 @@ export class AnalyticsComponent implements OnInit {
         let context = canvas.getContext("2d");
         const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
     
-        const chart = new Chart(context, {
+        this.world_map = new Chart(context, {
           type: 'choropleth',
           data: {
             labels: countries.map((d) => d.properties.name),
@@ -104,6 +107,19 @@ export class AnalyticsComponent implements OnInit {
           }
         });
       });
-  }
 
+      this.socket.listen('os').subscribe((data)=>{
+        console.log("data, ",data);
+        this.pie_chart.data = data;
+      })
+  
+      this.socket.listen('graph').subscribe((data)=>{
+        console.log("data, ",data);
+        this.mychart.data = data;
+      })
+  
+      this.socket.listen('videos').subscribe((data)=>{
+        console.log("videos, ",data);
+      })
+  }
 }
