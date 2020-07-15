@@ -80,6 +80,8 @@ export class AnalyticsComponent implements OnInit {
         HTMLCanvasElement;
         let context = canvas.getContext("2d");
         const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
+        // TODO additional
+        console.log("contries",countries.map((d) => d.properties.name));
     
         this.world_map = new Chart(context, {
           type: 'choropleth',
@@ -109,13 +111,15 @@ export class AnalyticsComponent implements OnInit {
       });
 
       this.socket.listen('os').subscribe((data)=>{
-        console.log("data, ",data);
-        this.pie_chart.data = data;
+        console.log("os data, ",data);
+        this.mychart.data = data;
+        this.mychart.update();
       })
   
       this.socket.listen('graph').subscribe((data)=>{
         console.log("data, ",data);
         this.mychart.data = data;
+        this.mychart.update();
       })
   
       this.socket.listen('videos').subscribe((data)=>{

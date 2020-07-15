@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { LoginComponent } from './other/login/login.component';
 import { InfoComponent } from './other/info/info.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InfoComponent } from './other/info/info.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
