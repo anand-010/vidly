@@ -3,6 +3,7 @@ import {Chart} from 'node_modules/chart.js';
 import { from } from 'rxjs';
 import * as  ChartGeo from 'node_modules/chartjs-chart-geo';
 import { SocketService } from 'src/app/services/socket.service';
+import { templateJitUrl } from '@angular/compiler';
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
@@ -80,8 +81,30 @@ export class AnalyticsComponent implements OnInit {
         HTMLCanvasElement;
         let context = canvas.getContext("2d");
         const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
+        console.log(ChartGeo.topojson);
+        
         // TODO additional
-        console.log("contries",countries.map((d) => d.properties.name));
+        let mycontrylist = [{counry: 'India',count:10},{counry:'South Korea',count:15},{counry:'Vietnam',count:8}];
+        let display_list = [];
+        countries.forEach(element => {
+          let flag:any = {flag:false};
+          mycontrylist.forEach((elem)=>{
+            var temp = element.properties.name === elem.counry;
+            // console.log(temp);
+            if (temp) {
+              let t2 = countries.find((d) => d.properties.name === elem.counry);
+              flag = { feature: t2, flag:true, value:elem.count};
+            }
+          })
+          if (flag.flag) {
+            console.log(flag);   
+            display_list.push({feature : flag.feature, value: flag.value})
+          }
+          else{
+            display_list.push({feature: element, value: 0 })
+          }
+        });
+        // console.log("contries",countries.map((d) => d.properties.name));
     
         this.world_map = new Chart(context, {
           type: 'choropleth',
@@ -89,7 +112,8 @@ export class AnalyticsComponent implements OnInit {
             labels: countries.map((d) => d.properties.name),
             datasets: [{
               label: 'Countries',
-              data: countries.map((d) => ({feature: d, value: Math.random()})),
+              // data: countries.map((d) => ({feature: d, value: Math.random()})),
+              data: display_list,
             }]
           },
           options: {
@@ -120,10 +144,6 @@ export class AnalyticsComponent implements OnInit {
         console.log("data, ",data);
         this.mychart.data = data;
         this.mychart.update();
-      })
-  
-      this.socket.listen('videos').subscribe((data)=>{
-        console.log("videos, ",data);
       })
   }
 }

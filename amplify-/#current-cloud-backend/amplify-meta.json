@@ -1,0 +1,15 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-vidlyang-dev-163621-authRole",
+            "UnauthRoleArn": "arn:aws:iam::392526670506:role/amplify-vidlyang-dev-163621-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::392526670506:role/amplify-vidlyang-dev-163621-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-vidlyang-dev-163621-deployment",
+            "UnauthRoleName": "amplify-vidlyang-dev-163621-unauthRole",
+            "StackName": "amplify-vidlyang-dev-163621",
+            "StackId": "arn:aws:cloudformation:us-east-1:392526670506:stack/amplify-vidlyang-dev-163621/3b169170-c68b-11ea-9b78-12a417a66525",
+            "AmplifyAppId": "d3pkxen1i6rx75"
+        }
+    }
+}
