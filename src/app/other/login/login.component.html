@@ -9,38 +9,88 @@
             <button>Register</button>
         </div>
         <div class="wrapper">
-            <form id="login" tabindex="500" action="/login" method="POST">
+            <form id="login" tabindex="500" >
                 <h3>Login</h3>
                 <div class="mail">
-                    <input type="mail" name="name">
-                    <label>Mail or Username</label>
+                    <input type="mail" name="name" [(ngModel)]="login_form.mail" #name="ngModel" maxlength="40" name="name" required>
+                    <label for="name">Mail or Username</label>
+                    <div class="form-error" *ngIf="name.touched && !name.valid">
+                        <div *ngIf="name.errors.required">
+                          Enail is required
+                        </div>
+                        <div *ngIf="name.errors.maxlength">
+                          Email must be limited to 15 characters.
+                        </div>
+                      </div>
                 </div>
                 <div class="passwd">
-                    <input type="password" name="password">
-                    <label>Password</label>
+                    <input type="password" name="password" [(ngModel)]="login_form.password" #password="ngModel" minlength="6" maxlength="15" required>
+                    <label for="password">Password</label>
+                    <div class="form-error" *ngIf="password.touched && !password.valid">
+                        <div *ngIf="password.errors.required">
+                          Name is required
+                        </div>
+                        <div *ngIf="password.errors.minlength">
+                          Name must be at least 6 characters long.
+                        </div>
+                        <div *ngIf="password.errors.maxlength">
+                          Password must be limited to 15 characters.
+                        </div>
+                      </div>
                 </div>
                 <div class="submit">
-                    <button class="dark">Login</button>
+                    <button (click)="LoginContinue()" class="dark">Login</button>
                 </div>
             </form>
             <form id="register" tabindex="502" action="/register" method="POST">
                 <h3>Register</h3>
                 <div class="name">
-                    <input type="text" name="rg_name">
-                    <label>Name</label>
+                    <input type="text" name="rg_name" ngModel #rg_name="ngModel" minlength="3" required>
+                    <label for="rg_name">Name</label>
+                    <div class="form-error" *ngIf="rg_name.touched && !rg_name.valid">
+                        <div *ngIf="rg_name.errors.required">
+                          Name is required
+                        </div>
+                        <div *ngIf="rg_name.errors.minlength">
+                          Name must be at least 6 characters long.
+                        </div>
+                      </div>
                 </div>
                 <div class="mail">
-                    <input type="mail" name="rg_email">
-                    <label>Mail</label>
+                    <input type="mail" name="password" ngModel #rg_email="ngModel" minlength="3" required>
+                    <label for="rg_email">Mail</label>
+                    <div class="form-error" *ngIf="rg_email.touched && !rg_email.valid">
+                      <div *ngIf="rg_email.errors.required">
+                        Email is required
+                      </div>
+                      <div *ngIf="rg_email.errors.minlength">
+                        Email must be at least 6 characters long.
+                      </div>
+                    </div>
+                    
                 </div>
 
                 <div class="passwd">
-                    <input type="password" name="rg_password">
-                    <label>Password</label>
+                    <input type="password" name="rg_password" ngModel #rg_password="ngModel" minlength="3" required>
+                    <label for="rg_password">Password</label>
+                    <div class="form-error" *ngIf="rg_password.touched && !rg_password.valid">
+                      <div *ngIf="rg_password.errors.required">
+                        Name is required
+                      </div>
+                      <div *ngIf="rg_password.errors.minlength">
+                        Name must be at least 6 characters long.
+                      </div>
+                      <div *ngIf="rg_password.errors.maxlength">
+                        Password must be limited to 15 characters.
+                      </div>
+                    </div>
                 </div>
                 <div class="passwd">
-                    <input type="password" name="rg_repete">
-                    <label>repete</label>
+                    <input type="password" name="rg_repete" ngModel #rg_repete="ngModel" minlength="3" required>
+                    <label for="rg_repete">repete</label>
+                      <div *ngIf="rg_repete.dirty && rg_repete.value != rg_password.value">
+                        Password should be match
+                      </div>
                 </div>
                 <div class="submit">
                     <button class="dark">Register</button>

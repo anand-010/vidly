@@ -10,7 +10,7 @@
     <div class="file-upload" [hidden]="!upload_show" [@panelInOut]>
         <section>
             <div id="dropzone">
-                <form class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post" action="/upload" style="border: 2px dashed rgb(48, 149, 231);">
+                <form class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post" action="http://localhost/upload" style="border: 2px dashed rgb(48, 149, 231);">
                     <div class="dz-message needsclick">
                         Drop files here or click to upload.
                         <br>
@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-12 mb-4" *ngFor="let video of getVid(); index as i">
-            <div class="card shadow border-left-primary py-2" [style.background]="isSelected[i]?'blue':'white'" (click)="isSelected[i]=!isSelected[i];">
+            <div *ngIf="video.status == 'success'" class="card shadow border-left-primary py-2" [style.background]="isSelected[i]?'blue':'white'" (click)="isSelected[i]=!isSelected[i];">
                 <div class="card-body">
                     <div class="row align-items-center no-gutters">
                         <div class="col-3 pr-2"><img [src]=video.src width="90px"></div>
@@ -38,6 +38,31 @@
                             <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Size : {{video.size}}</span></div>
                         </div>
                         <div class="col-1"><i class="fas fa-ellipsis-v fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- testing ulploading states -->
+            <div *ngIf="video.status != 'success'" class="col-12 mb-4">
+                <div class="card shadow border-left-primary py-2 cat-item">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-3 mr-2"><img src="assets/img/Video-Thumbnails-sml-1280x995.55555555556-c-default.jpg" width="90px"></div>
+                            <div class="col-7 mr-2">
+                                <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>company promotion.mp4</span></div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>{{video.status}}...</span></div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1" style="margin-left: 30px;"><i class="fas fa-trash fa-2x text-gray-300"></i></div>
+                        </div>
                     </div>
                 </div>
             </div>

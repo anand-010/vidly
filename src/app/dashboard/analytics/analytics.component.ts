@@ -76,63 +76,51 @@ export class AnalyticsComponent implements OnInit {
       });
     
       // world map
-      fetch('https://unpkg.com/world-atlas/countries-110m.json').then((r) => r.json()).then((data) => {
-        let canvas = document.getElementById('world_map') as
-        HTMLCanvasElement;
-        let context = canvas.getContext("2d");
-        const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
-        console.log(ChartGeo.topojson);
-        
         // TODO additional
         let mycontrylist = [{counry: 'India',count:10},{counry:'South Korea',count:15},{counry:'Vietnam',count:8}];
         let display_list = [];
-        countries.forEach(element => {
-          let flag:any = {flag:false};
-          mycontrylist.forEach((elem)=>{
-            var temp = element.properties.name === elem.counry;
-            // console.log(temp);
-            if (temp) {
-              let t2 = countries.find((d) => d.properties.name === elem.counry);
-              flag = { feature: t2, flag:true, value:elem.count};
-            }
-          })
-          if (flag.flag) {
-            console.log(flag);   
-            display_list.push({feature : flag.feature, value: flag.value})
-          }
-          else{
-            display_list.push({feature: element, value: 0 })
-          }
-        });
-        // console.log("contries",countries.map((d) => d.properties.name));
-    
-        this.world_map = new Chart(context, {
-          type: 'choropleth',
-          data: {
-            labels: countries.map((d) => d.properties.name),
-            datasets: [{
-              label: 'Countries',
-              // data: countries.map((d) => ({feature: d, value: Math.random()})),
-              data: display_list,
-            }]
-          },
-          options: {
-            showOutline: true,
-            showGraticule: true,
-            legend: {
-              display: false
+        fetch('https://unpkg.com/world-atlas/countries-110m.json').then((r) => r.json()).then((data) => {
+          let canvas = document.getElementById('world_map') as
+          HTMLCanvasElement;
+          let context = canvas.getContext("2d");
+          const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
+          const lookup = new Map(mycontrylist.map((d) => [d.counry, d.count]));
+          const display_list = countries.map((element) => {
+            return {
+                feature: element,
+                value: lookup.get(element.properties.name) || 0,
+             };
+           });
+           
+          console.log('display list',display_list);
+          
+          this.world_map = new Chart(context, {
+            type: 'choropleth',
+            data: {
+              labels: countries.map((d) => d.properties.name),
+              datasets: [{
+                label: 'Countries',
+                // data: countries.map((d) => ({feature: d, value: Math.random()})),
+                data: display_list,
+              }]
             },
-            scale: {
-              projection: 'equalEarth'
-            },
-            geo: {
-              colorScale: {
-                display: true,
+            options: {
+              showOutline: true,
+              showGraticule: true,
+              legend: {
+                display: false
               },
-            },
-          }
+              scale: {
+                projection: 'equalEarth'
+              },
+              geo: {
+                colorScale: {
+                  display: true,
+                },
+              },
+            }
+          });
         });
-      });
 
       this.socket.listen('os').subscribe((data)=>{
         console.log("os data, ",data);
@@ -145,5 +133,9 @@ export class AnalyticsComponent implements OnInit {
         this.mychart.data = data;
         this.mychart.update();
       })
+
+      this.socket.listen('world_map').subscribe((county_list:any)=>{
+        // TODO add it later
+      });
   }
 }

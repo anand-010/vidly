@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "vidly-78e8b": {
+      "hosting": {
+        "vidly-ang": [
+          "vidly-78e8b"
+        ]
+      }
+    }
+  }
+}
