@@ -9,11 +9,11 @@ import * as Dropzone from 'dropzone';
   styleUrls: ['./home.component.css'],
   animations: [
     trigger('panelInOut', [
-        transition('void => *', [
+        transition('0 => 1', [
             style({transform: 'translateY(-10%)', opacity: 1}),
             animate(900)
         ]),
-        transition('* => void', [
+        transition('1 => 0', [
             animate(500, style({transform: 'translateY(-10%)', opacity : 0}))
         ])
     ])

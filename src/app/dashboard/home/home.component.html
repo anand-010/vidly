@@ -7,7 +7,7 @@
             <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Embed web/android</a><a class="dropdown-item" role="presentation" href="#">Add to category</a><a class="dropdown-item" role="presentation" href="#">Delete video</a></div>
         </div>
     </div>
-    <div class="file-upload" [hidden]="!upload_show" [@panelInOut]>
+    <div class="file-upload" [hidden]="!upload_show" [@panelInOut]="upload_show">
         <section>
             <div id="dropzone">
                 <form class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post" action="http://localhost/upload" style="border: 2px dashed rgb(48, 149, 231);">
