@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import * as  ChartGeo from 'node_modules/chartjs-chart-geo';
 import { SocketService } from 'src/app/services/socket.service';
 import { templateJitUrl } from '@angular/compiler';
+import { ApolloService } from 'src/app/services/apollo.service';
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
@@ -13,9 +14,13 @@ export class AnalyticsComponent implements OnInit {
   mychart;
   pie_chart;
   world_map;
-  constructor(private socket : SocketService) { }
+  constructor(private socket : SocketService, private apolloservice: ApolloService) { }
 
   ngOnInit(): void {
+      $(".dropdown-menu .dropdown-item").click(function(){   
+        $(this).parents(".btn-group").find('.btn').html($(this).text());
+        $(this).parents(".btn-group").find('.btn').val($(this).data('value'));
+      });
         // creating the chart.js
         this.mychart = new Chart(document.getElementById("mychart"), {
           type: 'line',
@@ -74,6 +79,24 @@ export class AnalyticsComponent implements OnInit {
             }
           }
       });
+      console.log('pie chart', this.pie_chart.data);
+      this.pie_chart = new Chart(document.getElementById("mybarchart"), {
+        type: 'bar',
+        data: {
+          labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+          datasets: [{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+            data: [2478,5267,734,784,433]
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Predicted world population (millions) in 2050'
+          }
+        }
+    });
     
       // world map
         // TODO additional
@@ -137,5 +160,24 @@ export class AnalyticsComponent implements OnInit {
       this.socket.listen('world_map').subscribe((county_list:any)=>{
         // TODO add it later
       });
+
+      this.apolloservice.getOstypes().subscribe((x:any)=>{
+        console.log(x.data.osTypes);
+        console.log(this.pie_chart.data);
+        
+        this.pie_chart.data = {
+          labels: x.data.osTypes.names,
+          datasets: [{
+              label: "Population (millions)",
+              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              data: x.data.osTypes.value
+          }]
+      }
+
+      this.pie_chart.update();
+      })
   }
+
+
+
 }

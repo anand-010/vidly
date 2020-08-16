@@ -1,21 +1,40 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Apollo } from 'apollo-angular';
+import { gql } from '@apollo/client/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideosService {
   videos: Observable<any[]>;
-  constructor(private auth: AuthService,private firestore:AngularFirestore) {
+  constructor(private apollo :Apollo) {
     
    }
    
-   async getVideos(){
-      let uid = await this.auth.getuserId();
-      this.videos = this.firestore.collection('Users').doc(uid).collection('Videos').valueChanges();
-      return this.videos;
-    // TODO need to done something else
+   getVideos(){
+    return this.apollo.subscribe({
+      query: gql(`subscription {
+        subscribeVideos(uid:"1234"){
+          path
+          playlist
+          name
+          transcoded_at
+          status
+          id
+          uid
+          duration
+          bitrate
+          context
+          uploaded_at
+          thumbnail
+        }
+      }`)
+    })
+    // .subscribe(val=>{
+    //   console.log('value ', val);
+    // })
    }
 }

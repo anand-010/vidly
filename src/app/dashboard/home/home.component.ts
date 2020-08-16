@@ -29,32 +29,31 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.socket.listen('videos').subscribe((data)=>{
-      this.videos = data;
-      console.log("os data, ",this.videos);
-    })
-    this.socket.listen('vid_update').subscribe((data)=>{
-      this.videos.unshift(data);
-      // this.videos = data;
-      console.log("update , ",data);
-    })
+    // this.socket.listen('videos').subscribe((data)=>{
+    //   this.videos = data;
+    //   console.log("os data, ",this.videos);
+    // })
+    // this.socket.listen('vid_update').subscribe((data)=>{
+    //   this.videos.unshift(data);
+    //   // this.videos = data;
+    //   console.log("update , ",data);
+    // })
 
-    this.videoservice.getVideos().then((data)=>{
-      data.subscribe(viddata=>{
+    this.videoservice.getVideos()
+      .subscribe((viddata:any)=>{
         console.log(viddata);
-        this.videos = viddata.map(m=>{
-          return {name:m.Key, duration : m.format.duration ,src: "assets/img/Video-Thumbnails-sml-1280x995.55555555556-c-default.jpg",bitrate:m.format.bit_rate,views:'15k',size: m.format.size , status:m.status}
-        })
-        
+        this.videos = viddata.data.subscribeVideos;
+        // this.videos = viddata.map(m=>{
+        //   return {name:m.Key, duration : m.format.duration ,src: "assets/img/Video-Thumbnails-sml-1280x995.55555555556-c-default.jpg",bitrate:m.format.bit_rate,views:'15k',size: m.format.size , status:m.status}
+        // })
       })
-      
-    });
+
 
     // dropzone test
     var dropzone = new Dropzone('#demo-upload', {
       withCredentials: true,
       acceptedFiles: "video/mp4,video/avi,video/mkv",
-      paramName: 'paramNameForSend',
+      paramName: 'userParamName',
       method: 'post',
       parallelUploads: 2,
       thumbnailHeight: 120,

@@ -18,6 +18,7 @@ import { firebaseConfig } from 'src/firebase.cred';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/intercepter';
+import { GraphQLModule } from './graphql.module';
 
 
 
@@ -41,7 +42,8 @@ import { TokenInterceptor } from 'src/intercepter';
     BrowserAnimationsModule,
     AngularFireAuthModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GraphQLModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
