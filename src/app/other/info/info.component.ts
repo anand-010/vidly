@@ -24,6 +24,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class InfoComponent implements OnInit {
   step:any;
   image:string;
+  imageSrc: any;
   constructor() { 
     this.step =1;
     this.image = 'assets/img/profile.jpg'
@@ -37,5 +38,18 @@ export class InfoComponent implements OnInit {
   decStep(){
     this.step = this.step-1;
   }
+  readURL(event: HTMLInputEvent): void {
+    if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
 
+        const reader = new FileReader();
+        reader.onload = e => this.imageSrc = reader.result;
+
+        reader.readAsDataURL(file);
+    }
 }
+}
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+

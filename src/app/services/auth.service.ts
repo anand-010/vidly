@@ -40,7 +40,8 @@ export class AuthService {
 
   // Sign in with email/password
   SignIn(email, password) {
-    return this.auth.signInWithEmailAndPassword(email, password)
+    return new Promise((resolve, reject)=>{
+      this.auth.signInWithEmailAndPassword(email, password)
       .then(async (result) => {
         if (result.user.emailVerified !== true) {
           this.SendVerificationMail();
@@ -55,29 +56,14 @@ export class AuthService {
           // Simple POST request with a JSON body and response type <any>
           this.http.post<any>('http://localhost/login', { Token: Token }, { withCredentials:true }).subscribe(data => {
             console.log("response from server", data);
-            // if (data.mgs==='Continue') {
-            //   this.createCookie('ohgod',data.cookie,30)
-            // }
-            
+            resolve(data);
         })
-        //   $.ajax({
-        //     url : 'http://localhost/login',
-        //     method : "POST",
-        //     data : {Token:Token},
-        //     dataType : 'text',
-        //     contentType: 'application/json',
-        //     success : function(data) {
-        //         console.log("yeeeii",data)
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         $(".error").html(textStatus);
-        //     }
-        // });
         }
-        // this.SetUserData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        window.alert(error.message);
+        reject(error);
       })
+    })
   }
   async getuserId(){
     return (await this.auth.currentUser).uid;

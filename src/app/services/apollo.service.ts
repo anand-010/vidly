@@ -14,7 +14,7 @@ export class ApolloService {
     
    }
    
-   getOstypes(){
+   getOstypes(timemode:Number){
     return this.apollo.query({
       query: gql(`query osTypes($uid:String,$timemode:Int){
         osTypes(uid:$uid,timemode:$timemode){
@@ -24,7 +24,7 @@ export class ApolloService {
       }`),
       variables:{
         uid:"1234",
-        timemode:1
+        timemode:timemode
       }
 
     })
@@ -41,6 +41,21 @@ export class ApolloService {
       variables:{
         uid:"1234",
         timemode:1
+      }
+
+    })
+   }
+   getCountry(timemode:Number){
+    return this.apollo.query({
+      query: gql(`query countries($uid:String,$timemode:Int){
+          countries(uid:$uid,timemode:$timemode){
+            count
+            country
+          }
+      }`),
+      variables:{
+        uid:"1234",
+        timemode:timemode
       }
 
     })

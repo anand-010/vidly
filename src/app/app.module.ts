@@ -19,7 +19,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/intercepter';
 import { GraphQLModule } from './graphql.module';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -43,7 +44,9 @@ import { GraphQLModule } from './graphql.module';
     AngularFireAuthModule,
     ReactiveFormsModule,
     HttpClientModule,
-    GraphQLModule
+    GraphQLModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

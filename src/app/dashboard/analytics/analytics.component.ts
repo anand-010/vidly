@@ -13,14 +13,17 @@ import { ApolloService } from 'src/app/services/apollo.service';
 export class AnalyticsComponent implements OnInit {
   mychart;
   pie_chart;
+  bar_chart;
   world_map;
+  countries;
   constructor(private socket : SocketService, private apolloservice: ApolloService) { }
 
   ngOnInit(): void {
-      $(".dropdown-menu .dropdown-item").click(function(){   
-        $(this).parents(".btn-group").find('.btn').html($(this).text());
-        $(this).parents(".btn-group").find('.btn').val($(this).data('value'));
-      });
+      
+
+
+
+        // $(this).parents(".btn-group").find('.btn').val($(this).data('value'));
         // creating the chart.js
         this.mychart = new Chart(document.getElementById("mychart"), {
           type: 'line',
@@ -80,7 +83,7 @@ export class AnalyticsComponent implements OnInit {
           }
       });
       console.log('pie chart', this.pie_chart.data);
-      this.pie_chart = new Chart(document.getElementById("mybarchart"), {
+      this.bar_chart = new Chart(document.getElementById("mybarchart"), {
         type: 'bar',
         data: {
           labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
@@ -106,21 +109,19 @@ export class AnalyticsComponent implements OnInit {
           let canvas = document.getElementById('world_map') as
           HTMLCanvasElement;
           let context = canvas.getContext("2d");
-          const countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
+          this.countries = ChartGeo.topojson.feature(data, data.objects.countries).features;
           const lookup = new Map(mycontrylist.map((d) => [d.counry, d.count]));
-          const display_list = countries.map((element) => {
+          const display_list = this.countries.map((element) => {
             return {
                 feature: element,
                 value: lookup.get(element.properties.name) || 0,
              };
            });
-           
-          console.log('display list',display_list);
           
           this.world_map = new Chart(context, {
             type: 'choropleth',
             data: {
-              labels: countries.map((d) => d.properties.name),
+              labels: this.countries.map((d) => d.properties.name),
               datasets: [{
                 label: 'Countries',
                 // data: countries.map((d) => ({feature: d, value: Math.random()})),
@@ -144,40 +145,78 @@ export class AnalyticsComponent implements OnInit {
             }
           });
         });
-
-      this.socket.listen('os').subscribe((data)=>{
-        console.log("os data, ",data);
-        this.mychart.data = data;
-        this.mychart.update();
-      })
-  
-      this.socket.listen('graph').subscribe((data)=>{
-        console.log("data, ",data);
-        this.mychart.data = data;
-        this.mychart.update();
-      })
-
-      this.socket.listen('world_map').subscribe((county_list:any)=>{
-        // TODO add it later
-      });
-
-      this.apolloservice.getOstypes().subscribe((x:any)=>{
-        console.log(x.data.osTypes);
-        console.log(this.pie_chart.data);
-        
-        this.pie_chart.data = {
-          labels: x.data.osTypes.names,
-          datasets: [{
+  }
+  timeMode(event:any){
+    console.log('ev',event.source.id, event.value);
+    switch (event.source.id) {
+      case 'time_mode_pie_chart':{
+        this.apolloservice.getOstypes(this.getTime(event.value)).subscribe((val:any)=>{
+          console.log('values', val);
+          this.pie_chart.data = {
+            labels: val.data.osTypes.names,
+            datasets: [{
               label: "Population (millions)",
               backgroundColor: ["#3e95cd", "#8e5ea2"],
-              data: x.data.osTypes.value
-          }]
+              data: val.data.osTypes.value
+            }]
+          }
+          this.pie_chart.update();
+        })
+        break;
       }
-
-      this.pie_chart.update();
-      })
+      case 'time_mode_world_map':{
+        this.apolloservice.getCountry(this.getTime(event.value)).subscribe((val:any)=>{
+          console.log('values', val.data.countries);
+          const lookup = new Map(val.data.countries.map((d) => [d.country, d.count]));
+          const display_list = this.countries.map((element) => {
+            return {
+                feature: element,
+                value: lookup.get(element.properties.name) || 0,
+             };
+           });
+           this.world_map.data = {
+            labels: this.countries.map((d) => d.properties.name),
+            datasets: [{
+              label: 'Countries',
+              // data: countries.map((d) => ({feature: d, value: Math.random()})),
+              data: display_list,
+            }]
+          }
+          this.world_map.update();
+        })
+        break;
+      }
+      default:
+        break;
+    }
   }
-
-
-
+  getTime(shortName:String){
+    console.log('from switch', shortName);
+    
+    switch (shortName) {
+      case 'td':
+        return 0;
+        break;
+      case 'yd':
+        return 1;
+        break;
+      case 'wk':
+        return 2;
+        break;
+      case 'mt':
+        return 3;
+      case '3mt':
+        return 4;
+        break;
+      case 'yr':
+        return 5;
+        break;
+      case 'all':
+        return 6;
+        break;
+      default:
+        return 6;
+        break;
+    }
+  }
 }

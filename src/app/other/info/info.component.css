@@ -52,6 +52,7 @@
     background-repeat: no-repeat;
 }
 
+
 /* the pricing table css */
 
 .price_item:hover {
@@ -449,4 +450,20 @@ input {
 
 .price_select_border {
     border: 5px solid green;
+}
+
+
+/* my edits */
+
+#bottom_nav {
+    height: 100px;
+}
+
+.mb-5,
+.my-5 {
+    margin-bottom: 5px!important;
+}
+
+.content {
+    margin-bottom: 500px;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 login_form;
-  constructor(public auth: AuthService,private formBuilder: FormBuilder) {
+  constructor(public auth: AuthService,private formBuilder: FormBuilder, private router: Router) {
     this.login_form = {
       email :'',
       password:''
@@ -48,9 +49,14 @@ login_form;
   // });
   }
   
-LoginContinue(){
+async LoginContinue(){
   console.log(this.login_form);
-  this.auth.SignIn(this.login_form.mail, this.login_form.password);
+  try {
+    await this.auth.SignIn(this.login_form.mail, this.login_form.password);
+    this.router.navigate(['/info']);
+  } catch (error) {
+    
+  }
 
 }
 // createCookie(name:string, value:string, days:number) {
