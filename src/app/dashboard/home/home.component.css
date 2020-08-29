@@ -1,0 +1,17 @@
+#icon-controlls {
+    position: absolute;
+    margin-top: 0px;
+    margin-right: 0px;
+    top: 20px;
+    right: 0px;
+}
+
+.fa-2x {
+    padding: 5px;
+    transition: transform .2s;
+}
+
+.fa-2x:hover {
+    padding: 5px;
+    transform: scale(1.5);
+}

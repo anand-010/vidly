@@ -3,6 +3,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { SocketService } from 'src/app/services/socket.service';
 import { VideosService } from 'src/app/services/videos.service';
 import * as Dropzone from 'dropzone';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import { CodepopupComponent } from '../codepopup/codepopup.component';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,10 +28,9 @@ export class HomeComponent implements OnInit {
   isSelected =[];
   videoList = [];
   videos :any = [{name:"myvideo", duration : "1.5 min" ,src: "assets/img/Video-Thumbnails-sml-1280x995.55555555556-c-default.jpg",bitrate:'15000',views:'15k',size:'2.3MB'}];
-  constructor(private socket : SocketService,private videoservice:VideosService) { 
+  constructor(private socket : SocketService,private videoservice:VideosService, private _snackBar: MatSnackBar, public dialog: MatDialog) { 
     this.upload_show = false;
   }
-
   ngOnInit(): void {
     // this.socket.listen('videos').subscribe((data)=>{
     //   this.videos = data;
@@ -79,4 +82,30 @@ export class HomeComponent implements OnInit {
     getVid(){
       return this.videos;
     }
+
+    deleteVid(id:String){
+      console.log('id is', id);
+      
+      this.videoservice.deleteVideo(id).subscribe(val=>{
+        console.log(val);
+      })
+
+    }
+    notify(payload: string) {
+      // Might want to notify the user that something has been pushed to the clipboard
+      console.info(`'${payload}' has been copied to clipboard`);
+      this._snackBar.open('Link Copied', 'Ok', {
+        duration: 2000,
+        panelClass: "text-success"
+      });
+   }
+   openDialog() {
+     console.log('indie open dialog');
+     
+    const dialogRef = this.dialog.open(CodepopupComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

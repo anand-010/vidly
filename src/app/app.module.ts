@@ -21,8 +21,13 @@ import { TokenInterceptor } from 'src/intercepter';
 import { GraphQLModule } from './graphql.module';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
-
+import { CopyClipboardDirective } from './directives/copy-clipboard.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CodepopupComponent } from './dashboard/codepopup/codepopup.component';
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatTabsModule } from '@angular/material/tabs'
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -33,6 +38,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HeaderComponent,
     LoginComponent,
     InfoComponent,
+    CopyClipboardDirective,
+    CodepopupComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -46,10 +53,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HttpClientModule,
     GraphQLModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatTabsModule,
+    HighlightModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        fullLibraryLoader: () => import('highlight.js'),
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

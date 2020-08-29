@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { gql } from '@apollo/client/core';
+import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,19 @@ export class VideosService {
         }
       }`)
     })
-    // .subscribe(val=>{
-    //   console.log('value ', val);
-    // })
+
+   }
+
+   deleteVideo(id:String){
+    return this.apollo.subscribe({
+      query: gql(`mutation deleteVideo($id:String){
+        deleteVideo(id:$id){
+          status
+        }
+      }`),
+      variables : {
+        id
+      }
+    })
    }
 }
