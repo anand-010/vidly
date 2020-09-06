@@ -2,77 +2,110 @@
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark mb-0">Home</h3>
     </div>
-    <div class="d-flex d-sm-flex justify-content-between mb-4"><button id="fileup_btn" (click)="upload_show =!upload_show;" class="btn btn-success" type="button"><i class="fa fa-plus"></i>&nbsp; add video</button>
-        <div class="dropdown"><button class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Manage</button>
-            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#">Embed web/android</a><a class="dropdown-item" role="presentation" href="#">Add to category</a><a class="dropdown-item" role="presentation" href="#">Delete video</a></div>
+    <div class="d-flex d-sm-flex justify-content-between mb-4">
+        <button id="fileup_btn" (click)="upload_show = !upload_show" class="btn btn-success" type="button">
+      <i class="fa fa-plus"></i>&nbsp; add video
+    </button>
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">
+        Manage
+      </button>
+            <div class="dropdown-menu" role="menu">
+                <a class="dropdown-item" role="presentation" href="#">Embed web/android</a
+        ><a class="dropdown-item" role="presentation" href="#"
+          >Add to category</a
+        ><a class="dropdown-item" role="presentation" href="#">Delete video</a>
+            </div>
         </div>
     </div>
     <div class="file-upload" [hidden]="!upload_show" [@panelInOut]="upload_show">
         <section>
             <div id="dropzone">
-                <form class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post" action="http://localhost/upload" style="border: 2px dashed rgb(48, 149, 231);">
+                <form class="dropzone needsclick dz-clickable" id="demo-upload" enctype="multipart/form-data" method="post" action="http://localhost/upload" style="border: 2px dashed rgb(48, 149, 231)">
                     <div class="dz-message needsclick">
                         Drop files here or click to upload.
-                        <br>
-                        <span class="note needsclick">(This is just a demo dropzone. Selected 
-                  files are <strong>not</strong> actually uploaded.)</span>
-                    </div>
-                </form>
+                        <br />
+                        <span class="note needsclick">(This is just a demo dropzone. Selected files are
+              <strong>not</strong> actually uploaded.)</span
+            >
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+  <div class="row">
+    <div class="col-12 mb-4" *ngFor="let video of getVid(); index as i">
+      <div
+        *ngIf="video.status == 'success'"
+        class="card shadow border-left-primary py-2"
+        [style.background]="isSelected[i] ? 'blue' : 'white'"
+        (click)="isSelected[i] = !isSelected[i]"
+      >
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col-3 pr-2">
+              <img [src]="video.thumbnail" width="90px" />
             </div>
-        </section>
-    </div>
-    <div class="row">
-        <div class="col-12 mb-4" *ngFor="let video of getVid(); index as i">
-            <div *ngIf="video.status == 'success'" class="card shadow border-left-primary py-2" [style.background]="isSelected[i]?'blue':'white'" (click)="isSelected[i]=!isSelected[i];">
-                <div class="card-body">
-                    <div class="row align-items-center no-gutters">
-                        <div class="col-3 pr-2"><img [src]=video.thumbnail width="90px"></div>
-                        <div class="col-3 pr-2">
-                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Video name : {{video.name }}</span></div>
-                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>uploaded on 26/5/20</span></div>
-                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Duration : {{video.duration}}</span></div>
-                        </div>
-                        <div class="col-3 pr-2">
-                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Bitrate : {{video.bitrate }}</span></div>
-                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Total views : {{video.views}}</span></div>
-                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Size : {{video.size}}</span></div>
-                        </div>
-                        <div class="col-2" id="icon-controlls">
-                            <i class="fas fa-copy fa-2x text-green-300" [copy-clipboard]=video.playlist (copied)="notify($event)" matTooltip="Copy Video url" matTooltipPosition="below" aria-label="Copy video url button"></i>
-                            <i class="fas fa-code fa-2x text-gray-300" (click)="openDialog();" matTooltip="Config Video" matTooltipPosition="below" aria-label="Config video url button"></i>
-                            <i class="fas fa-trash fa-2x text-red-300" (click)="deleteVid(video.id);" matTooltip="Delete Video" matTooltipPosition="below" aria-label="Delete video button"></i>
-                        </div>
+            <div class="col-3">
+              <div
+                class="text-uppercase text-info font-weight-bold text-xs mb-1"
+              >
+                <span>Video name : {{ video.name }}</span>
                     </div>
+                    <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                        <span>uploaded on 26/5/20</span>
+                    </div>
+                    <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                        <span>Duration : {{ video.duration }}</span>
+                    </div>
+            </div>
+            <div class="col-3 pr-2">
+                <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                    <span>Bitrate : {{ video.bitrate }}</span>
+                </div>
+                <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                    <span>Total views : {{ video.views }}</span>
+                </div>
+                <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                    <span>Size : {{ video.size }}</span>
                 </div>
             </div>
+            <div class="col-2" id="icon-controlls">
+                <i class="fas fa-copy fa-2x text-green-300" [copy-clipboard]="video.playlist" (copied)="notify($event)" matTooltip="Copy Video url" matTooltipPosition="below" aria-label="Copy video url button"></i>
+                <i class="fas fa-code fa-2x text-gray-300" (click)="openDialog(video)" matTooltip="Config Video" matTooltipPosition="below" aria-label="Config video url button"></i>
+                <i class="fas fa-trash fa-2x text-red-300" (click)="deleteVid(video.id)" matTooltip="Delete Video" matTooltipPosition="below" aria-label="Delete video button"></i>
+            </div>
+    </div>
+</div>
+</div>
 
-            <!-- testing ulploading states -->
-            <div *ngIf="video.status != 'success'" class="col-12 mb-4">
-                <div class="card shadow border-left-primary py-2 cat-item">
-                    <div class="card-body">
-                        <div class="row align-items-center no-gutters">
-                            <div class="col-3 mr-2"><img src="assets/img/Video-Thumbnails-sml-1280x995.55555555556-c-default.jpg" width="90px"></div>
-                            <div class="col-7 mr-2">
-                                <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>company promotion.mp4</span></div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>{{video.status}}...</span></div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1" style="margin-left: 30px;">
-                                <i class="fas fa-stop fa-2x text-gray-300"></i>
-                            </div>
+<!-- testing ulploading states -->
+<div *ngIf="video.status != 'success'" class="card shadow border-left-primary py-2 cat-item">
+    <div class="card-body">
+        <div class="row align-items-center no-gutters">
+            <div class="col-3 mr-2">
+                <img src="assets/img/placeholder.svg" width="90px" />
+            </div>
+            <div class="col-8 mr-2">
+                <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                    <span>company promotion.mp4</span>
+                </div>
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <div class="text-dark font-weight-bold h5 mb-0 mr-3">
+                            <span>{{ video.status }}...</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
+</div>
+</div>
 </div>

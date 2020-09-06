@@ -28,19 +28,21 @@ import { CodepopupComponent } from './dashboard/codepopup/codepopup.component';
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatTabsModule } from '@angular/material/tabs'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import {PackageSelectorComponent} from './other/package-selector/package-selector.component';
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    AppComponent,
-    HomeComponent,
-    NavigationComponent,
-    AnalyticsComponent,
-    HeaderComponent,
-    LoginComponent,
-    InfoComponent,
-    CopyClipboardDirective,
-    CodepopupComponent
-  ],
+    declarations: [
+        DashboardComponent,
+        AppComponent,
+        HomeComponent,
+        NavigationComponent,
+        AnalyticsComponent,
+        HeaderComponent,
+        LoginComponent,
+        InfoComponent,
+        CopyClipboardDirective,
+        CodepopupComponent,
+        PackageSelectorComponent
+    ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
     BrowserModule,

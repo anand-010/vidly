@@ -1,334 +1,638 @@
 <div>
-    <div id="content" class="max-w-5xl mx-auto px-4 py-15 " style="margin-bottom: 150px;">
+  <div
+    id="content"
+    class="max-w-5xl mx-auto px-4 py-15"
+    style="margin-bottom: 150px"
+  >
+    <div *ngIf="step === 'complete'">
+      <div
+        class="bg-white rounded-lg p-10 flex items-center shadow justify-between"
+      >
+        <div class="center-content">
+          <svg
+            class="mb-4 h-20 w-20 text-green-500 mx-auto"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd"
+            />
+          </svg>
 
-        <div *ngIf="step === 'complete'">
-            <div class="bg-white rounded-lg p-10 flex items-center shadow justify-between">
-                <div>
-                    <svg class="mb-4 h-20 w-20 text-green-500 mx-auto" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          <h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">
+            Submitting Your details
+          </h2>
 
-                    <h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Registration Success</h2>
+          <div class="text-gray-600 mb-8">
+            Thank you. We have sent you an email to demo@demo.test. Please click
+            the link in the message to activate your account.
+          </div>
 
-                    <div class="text-gray-600 mb-8">
-                        Thank you. We have sent you an email to demo@demo.test. Please click the link in the message to activate your account.
-                    </div>
-
-                    <button (click)="step = 1" class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border">Back to home</button>
-                </div>
-            </div>
+          <button
+            (click)="step = 1"
+            class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+          >
+            Back to home
+          </button>
         </div>
+      </div>
+    </div>
 
-        <div *ngIf="step != 'complete'">
-            <!-- Top Navigation -->
-            <div class="border-b-2 py-4">
-                <div class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight">Step: {{step}} of 3</div>
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div class="flex-1">
-                        <div *ngIf="step === 1">
-                            <div class="text-lg font-bold text-gray-700 leading-tight">Your Profile</div>
-                        </div>
-
-                        <div *ngIf="step === 2">
-                            <div class="text-lg font-bold text-gray-700 leading-tight">Select Package</div>
-                        </div>
-
-                        <div *ngIf="step === 3">
-                            <div class="text-lg font-bold text-gray-700 leading-tight">Payment Methord</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center md:w-64">
-                        <div class="w-full bg-white rounded-full mr-2">
-                            <div class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white" style="width:{{step / 3 * 100 | number:'2.0-0'}}%"></div>
-                        </div>
-                        <div class="text-xs w-10 text-gray-600">{{step / 3 * 100 | number:'2.0-0'}} %</div>
-                    </div>
-                </div>
+    <div *ngIf="step != 'complete'">
+      <!-- Top Navigation -->
+      <div class="border-b-2 py-4">
+        <div
+          class="uppercase tracking-wide text-xs font-bold text-gray-500 mb-1 leading-tight"
+        >
+          Step: {{ step }} of 3
+        </div>
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between"
+        >
+          <div class="flex-1">
+            <div *ngIf="step === 1">
+              <div class="text-lg font-bold text-gray-700 leading-tight">
+                Your Profile
+              </div>
             </div>
-            <!-- /Top Navigation -->
 
-            <!-- Step Content -->
-            <div class="py-10">
-                <div *ngIf="step === 1" [@panelInOut]>
-                    <div class="mb-5 text-center">
-                        <div class="mx-auto w-32 h-32 mb-2 border rounded-full relative bg-gray-100 mb-4 shadow-inset">
-                            <img id="image" class="object-cover w-full h-32 rounded-full" [src]="imageSrc || image" />
-                        </div>
+            <div *ngIf="step === 2">
+              <div class="text-lg font-bold text-gray-700 leading-tight">
+                Select Package
+              </div>
+            </div>
 
-                        <label for="fileInput" type="button" class="cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-gray-100 font-medium">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-flex flex-shrink-0 w-6 h-6 -mt-1 mr-1" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
-                            <path d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2" />
-                            <circle cx="12" cy="13" r="3" />
-                        </svg>						
-                        Browse Photo
-                    </label>
+            <div *ngIf="step === 3">
+              <div class="text-lg font-bold text-gray-700 leading-tight">
+                Payment Methord
+              </div>
+            </div>
+          </div>
 
-                        <div class="mx-auto w-48 text-gray-500 text-xs text-center mt-1">Click to add profile picture</div>
+          <div class="flex items-center md:w-64">
+            <div class="w-full bg-white rounded-full mr-2">
+              <div
+                class="rounded-full bg-green-500 text-xs leading-none h-2 text-center text-white"
+                style="width:{{ (step / 3) * 100 | number: '2.0-0' }}%"
+              ></div>
+            </div>
+            <div class="text-xs w-10 text-gray-600">
+              {{ (step / 3) * 100 | number: "2.0-0" }} %
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Top Navigation -->
 
-                        <input name="photo" id="fileInput" accept="image/*" (change)="readURL($event);" class="hidden" type="file">
-                    </div>
+      <!-- Step Content -->
+      <div class="py-10">
+        <form *ngIf="step === 1" [@panelInOut] [formGroup]="profileForm">
+          <div class="mb-5 text-center">
+            <div
+              class="mx-auto w-32 h-32 mb-2 border rounded-full relative bg-gray-100 mb-4 shadow-inset"
+            >
+              <img
+                id="image"
+                class="object-cover w-full h-32 rounded-full"
+                [src]="imageSrc || image"
+              />
+            </div>
 
-                    <div class="mb-5">
-                        <label for="firstname" class="font-bold mb-1 text-gray-700 block">Company name</label>
-                        <input type="text" class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium" placeholder="eg. Vidly" id="company_name" oninput="nameinp();">
-                        <p class="not-valid validate-msg" msg-reason=1>Name should be below 15 characters</p>
-                        <p class="not-valid validate-msg" msg-reason=2>Please provide a company name</p>
-                    </div>
+            <label
+              for="fileInput"
+              type="button"
+              class="cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-gray-100 font-medium"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="inline-flex flex-shrink-0 w-6 h-6 -mt-1 mr-1"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+                <path
+                  d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"
+                />
+                <circle cx="12" cy="13" r="3"/>
+              </svg>
+              Browse Photo
+            </label>
 
-                    <div class="mb-5">
-                        <label for="location" class="font-bold mb-1 text-gray-700 block">Company Location</label>
-                        <input type="text" class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium" placeholder="Eg. kochi , Eranakulam" id="location" oninput="locinp();">
-                        <p class="not-valid validate-msg" msg-reason=3>Location should be below 15 characters</p>
-                        <p class="not-valid validate-msg" msg-reason=4>Please provide Company location</p>
-                    </div>
-                    <div class="mb-5">
-                        <label for="type" class="font-bold mb-1 text-gray-700 block">company sector or purpose</label>
-                        <input type="text" list="sectors" class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium" placeholder="eg. automobile" id="sector" oninput="sectorinp();">
-                        <datalist id="sectors">
-                            <option>automobile</option>
-                            <option>Saab</option>
-                            <option>Mercedes</option>
-                            <option>Audi</option>
-                          </datalist>
-                        <p class="not-valid validate-msg" msg-reason=5>value should be below 15 characters</p>
-                        <p class="not-valid validate-msg" msg-reason=6>No sector selected</p>
-                    </div>
-                    <div class="mb-5">
-                        <label for="url" class="font-bold mb-1 text-gray-700 block">company website</label>
-                        <input type="text" class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium" placeholder="http://......." id="website" oninput="urlinp();">
-                        <p class="not-valid validate-msg" msg-reason=7>Enter a valid website</p>
-                        <p class="not-valid validate-msg" msg-reason=8>provide a website url</p>
-                    </div>
+            <div class="mx-auto w-48 text-gray-500 text-xs text-center mt-1">
+              Click to add profile picture
+            </div>
 
-                </div>
-                <div *ngIf="step === 2" class="slide_items" [@panelInOut]>
+            <input
+              name="photo"
+              id="fileInput"
+              formControlName="profilePic"
+              accept="image/*"
+              (change)="readURL($event)"
+              class="hidden"
+              type="file"
+            />
+          </div>
 
-                    <div class="mb-5">
-                        <div class="flex flex-wrap text-center align-items-end">
-                            <!-- Pricing Table-->
-                            <div class="lg:w-1/3 pr-4 pl-4 mb-5 mb-lg-0">
-                                <div class="bg-white p-5 rounded-lg shadow price_item" id="price_1">
-                                    <h1 class="h6 uppercase font-bold mb-4">Basic</h1>
-                                    <h2 class="h1 font-bold">$199<span class="text-small font-normal ml-2">/ month</span></h2>
-                                    <div class="custom-separator my-4 mx-auto bg-blue"></div>
-                                    <ul class="list-unstyled my-5 text-small text-left">
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Lorem ipsum dolor sit amet</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Sed ut perspiciatis</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> At vero eos et accusamus</li>
-                                        <li class="mb-3 text-grey">
-                                            <i class="fa fa-times mr-2"></i>
-                                            <del>Nam libero tempore</del>
-                                        </li>
-                                        <li class="mb-3 text-grey">
-                                            <i class="fa fa-times mr-2"></i>
-                                            <del>Sed ut perspiciatis</del>
-                                        </li>
-                                        <li class="mb-3 text-grey">
-                                            <i class="fa fa-times mr-2"></i>
-                                            <del>Sed ut perspiciatis</del>
-                                        </li>
-                                    </ul>
-                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light block w-full p-2 shadow rounded-pill">Subscribe</a>
-                                </div>
-                            </div>
-                            <!-- END -->
-                            <!-- Pricing Table-->
-                            <div class="lg:w-1/3 pr-4 pl-4 mb-5 mb-lg-0">
-                                <div class="bg-white p-5 rounded-lg shadow price_item" id="price_2">
-                                    <h1 class="h6 uppercase font-bold mb-4">Pro</h1>
-                                    <h2 class="h1 font-bold">$399<span class="text-small font-normal ml-2">/ month</span></h2>
-                                    <div class="custom-separator my-4 mx-auto bg-blue"></div>
-                                    <ul class="list-unstyled my-5 text-small text-left font-normal">
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Lorem ipsum dolor sit amet</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Sed ut perspiciatis</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> At vero eos et accusamus</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Nam libero tempore</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Sed ut perspiciatis</li>
-                                        <li class="mb-3 text-grey">
-                                            <i class="fa fa-times mr-2"></i>
-                                            <del>Sed ut perspiciatis</del>
-                                        </li>
-                                    </ul>
-                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light block w-full p-2 shadow rounded-pill">Subscribe</a>
-                                </div>
-                            </div>
-                            <!-- END -->
-                            <!-- Pricing Table-->
-                            <div class="lg:w-1/3 pr-4 pl-4">
-                                <div class="bg-white p-5 rounded-lg shadow price_item" id="price_3">
-                                    <h1 class="h6 uppercase font-bold mb-4">Enterprise</h1>
-                                    <h2 class="h1 font-bold">$899<span class="text-small font-normal ml-2">/ month</span></h2>
-                                    <div class="custom-separator my-4 mx-auto bg-blue"></div>
-                                    <ul class="list-unstyled my-5 text-small text-left font-normal">
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Lorem ipsum dolor sit amet</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Sed ut perspiciatis</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> At vero eos et accusamus</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Nam libero tempore</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Sed ut perspiciatis</li>
-                                        <li class="mb-3">
-                                            <i class="fa fa-check mr-2 text-blue"></i> Sed ut perspiciatis</li>
-                                    </ul>
-                                    <a href="#" class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-blue-lightest bg-blue hover:bg-blue-light block w-full p-2 shadow rounded-pill">Subscribe</a>
-                                </div>
-                            </div>
-                            <!-- END -->
-                        </div>
-                    </div>
+          <div class="mb-5">
+            <label for="firstname" class="font-bold mb-1 text-gray-700 block"
+            >Company name</label
+            >
+            <input
+              [class.not-valid-border]="
+                profileForm.get('cmpname').errors &&
+                (profileForm.get('cmpname').dirty ||
+                  profileForm.get('cmpname').touched)
+              "
+              formControlName="cmpname"
+              type="text"
+              class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+              placeholder="eg. Vidly"
+              id="company_name"
+            />
+            <div *ngFor="let validation of validation_messages.cmpname">
+              <p
+                class="not-valid"
+                *ngIf="
+                  profileForm.get('cmpname').hasError(validation.type) &&
+                  (profileForm.get('cmpname').dirty ||
+                    profileForm.get('cmpname').touched)
+                "
+              >
+                {{ validation.message }}
+              </p>
+            </div>
+          </div>
 
-                </div>
-                <div *ngIf="step === 3" class="slide_items" [@panelInOut]>
-                    <div class="container preload">
-                        <div class="creditcard">
-                            <div class="front">
-                                <div id="ccsingle"></div>
-                                <svg version="1.1" id="cardfront" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
-                                    <g id="Front">
-                                        <g id="CardBackground">
-                                            <g id="Page-1_1_">
-                                                <g id="amex_1_">
-                                                    <path id="Rectangle-1_1_" class="lightcolor grey" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
-                                            C0,17.9,17.9,0,40,0z" />
-                                                </g>
-                                            </g>
-                                            <path class="darkcolor greydark" d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z" />
-                                        </g>
-                                        <text transform="matrix(1 0 0 1 60.106 295.0121)" id="svgnumber" class="st2 st3 st4">0123 4567 8910 1112</text>
-                                        <text transform="matrix(1 0 0 1 54.1064 428.1723)" id="svgname" class="st2 st5 st6">JOHN DOE</text>
-                                        <text transform="matrix(1 0 0 1 54.1074 389.8793)" class="st7 st5 st8">cardholder name</text>
-                                        <text transform="matrix(1 0 0 1 479.7754 388.8793)" class="st7 st5 st8">expiration</text>
-                                        <text transform="matrix(1 0 0 1 65.1054 241.5)" class="st7 st5 st8">card number</text>
-                                        <g>
-                                            <text transform="matrix(1 0 0 1 574.4219 433.8095)" id="svgexpire" class="st2 st5 st9">01/23</text>
-                                            <text transform="matrix(1 0 0 1 479.3848 417.0097)" class="st2 st10 st11">VALID</text>
-                                            <text transform="matrix(1 0 0 1 479.3848 435.6762)" class="st2 st10 st11">THRU</text>
-                                            <polygon class="st2" points="554.5,421 540.4,414.2 540.4,427.9 		" />
-                                        </g>
-                                        <g id="cchip">
-                                            <g>
-                                                <path class="st2" d="M168.1,143.6H82.9c-10.2,0-18.5-8.3-18.5-18.5V74.9c0-10.2,8.3-18.5,18.5-18.5h85.3
-                                        c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z" />
-                                            </g>
-                                            <g>
-                                                <g>
-                                                    <rect x="82" y="70" class="st12" width="1.5" height="60" />
-                                                </g>
-                                                <g>
-                                                    <rect x="167.4" y="70" class="st12" width="1.5" height="60" />
-                                                </g>
-                                                <g>
-                                                    <path class="st12" d="M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3
+          <div class="mb-5">
+            <label for="location" class="font-bold mb-1 text-gray-700 block"
+            >Company Location</label
+            >
+            <input
+              formControlName="cmploc"
+              [class.not-valid-border]="
+                profileForm.get('cmploc').errors &&
+                (profileForm.get('cmploc').dirty ||
+                  profileForm.get('cmploc').touched)
+              "
+              type="text"
+              class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+              placeholder="Eg. kochi , Eranakulam"
+            />
+            <div *ngFor="let validation of validation_messages.cmploc">
+              <p
+                class="not-valid"
+                *ngIf="
+                  profileForm.get('cmploc').hasError(validation.type) &&
+                  (profileForm.get('cmploc').dirty ||
+                    profileForm.get('cmploc').touched)
+                "
+              >
+                {{ validation.message }}
+              </p>
+            </div>
+          </div>
+          <div class="mb-5">
+            <label for="type" class="font-bold mb-1 text-gray-700 block"
+            >company sector or purpose</label
+            >
+            <input
+              formControlName="sector"
+              [class.not-valid-border]="
+                profileForm.get('sector').errors &&
+                (profileForm.get('sector').dirty ||
+                  profileForm.get('sector').touched)
+              "
+              type="text"
+              list="sectors"
+              class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+              placeholder="eg. automobile"
+            />
+            <datalist id="sectors">
+              <option>automobile</option>
+              <option>Saab</option>
+              <option>Mercedes</option>
+              <option>Audi</option>
+            </datalist>
+            <div *ngFor="let validation of validation_messages.sector">
+              <p
+                class="not-valid"
+                *ngIf="
+                  profileForm.get('sector').hasError(validation.type) &&
+                  (profileForm.get('sector').dirty ||
+                    profileForm.get('sector').touched)
+                "
+              >
+                {{ validation.message }}
+              </p>
+            </div>
+          </div>
+          <div class="mb-5">
+            <label for="url" class="font-bold mb-1 text-gray-700 block"
+            >company website</label
+            >
+            <input
+              [class.not-valid-border]="
+                profileForm.get('website').errors &&
+                (profileForm.get('website').dirty ||
+                  profileForm.get('website').touched)
+              "
+              (input)="logForm()"
+              formControlName="website"
+              type="text"
+              class="w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+              placeholder="http://......."
+            />
+            <div *ngFor="let validation of validation_messages.website">
+              <p
+                class="not-valid"
+                *ngIf="
+                  profileForm.get('website').hasError(validation.type) &&
+                  (profileForm.get('website').dirty ||
+                    profileForm.get('website').touched)
+                "
+              >
+                {{ validation.message }}
+              </p>
+            </div>
+          </div>
+        </form>
+        <form
+          [formGroup]="packageForm"
+          *ngIf="step === 2"
+          class="slide_items"
+          [@panelInOut]
+        >
+          <div class="mb-5">
+            <app-package-selector formControlName="package">
+            </app-package-selector>
+          </div>
+        </form>
+        <form
+          [formGroup]="paymentForm"
+          *ngIf="step === 3"
+          class="slide_items"
+          [@panelInOut]
+        >
+          <div class="container preload">
+            <div class="creditcard">
+              <div class="front">
+                <div id="ccsingle"></div>
+                <svg
+                  version="1.1"
+                  id="cardfront"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 750 471"
+                  style="enable-background: new 0 0 750 471"
+                  xml:space="preserve"
+                >
+                  <g id="Front">
+                    <g id="CardBackground">
+                      <g id="Page-1_1_">
+                        <g id="amex_1_">
+                          <path
+                            id="Rectangle-1_1_"
+                            class="lightcolor grey"
+                            d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                            C0,17.9,17.9,0,40,0z"
+                          />
+                        </g>
+                      </g>
+                      <path
+                        class="darkcolor greydark"
+                        d="M750,431V193.2c-217.6-57.5-556.4-13.5-750,24.9V431c0,22.1,17.9,40,40,40h670C732.1,471,750,453.1,750,431z"
+                      />
+                    </g>
+                    <text
+                      transform="matrix(1 0 0 1 60.106 295.0121)"
+                      id="svgnumber"
+                      class="st2 st3 st4"
+                    >
+                      0123 4567 8910 1112
+                    </text>
+                    <text
+                      transform="matrix(1 0 0 1 54.1064 428.1723)"
+                      id="svgname"
+                      class="st2 st5 st6"
+                    >
+                      JOHN DOE
+                    </text>
+                    <text
+                      transform="matrix(1 0 0 1 54.1074 389.8793)"
+                      class="st7 st5 st8"
+                    >
+                      cardholder name
+                    </text>
+                    <text
+                      transform="matrix(1 0 0 1 479.7754 388.8793)"
+                      class="st7 st5 st8"
+                    >
+                      expiration
+                    </text>
+                    <text
+                      transform="matrix(1 0 0 1 65.1054 241.5)"
+                      class="st7 st5 st8"
+                    >
+                      card number
+                    </text>
+                    <g>
+                      <text
+                        transform="matrix(1 0 0 1 574.4219 433.8095)"
+                        id="svgexpire"
+                        class="st2 st5 st9"
+                      >
+                        01/23
+                      </text>
+                      <text
+                        transform="matrix(1 0 0 1 479.3848 417.0097)"
+                        class="st2 st10 st11"
+                      >
+                        VALID
+                      </text>
+                      <text
+                        transform="matrix(1 0 0 1 479.3848 435.6762)"
+                        class="st2 st10 st11"
+                      >
+                        THRU
+                      </text>
+                      <polygon
+                        class="st2"
+                        points="554.5,421 540.4,414.2 540.4,427.9 		"
+                      />
+                    </g>
+                    <g id="cchip">
+                      <g>
+                        <path
+                          class="st2"
+                          d="M168.1,143.6H82.9c-10.2,0-18.5-8.3-18.5-18.5V74.9c0-10.2,8.3-18.5,18.5-18.5h85.3
+                                        c10.2,0,18.5,8.3,18.5,18.5v50.2C186.6,135.3,178.3,143.6,168.1,143.6z"
+                        />
+                      </g>
+                      <g>
+                        <g>
+                          <rect
+                            x="82"
+                            y="70"
+                            class="st12"
+                            width="1.5"
+                            height="60"
+                          />
+                        </g>
+                        <g>
+                          <rect
+                            x="167.4"
+                            y="70"
+                            class="st12"
+                            width="1.5"
+                            height="60"
+                          />
+                        </g>
+                        <g>
+                          <path
+                            class="st12"
+                            d="M125.5,130.8c-10.2,0-18.5-8.3-18.5-18.5c0-4.6,1.7-8.9,4.7-12.3c-3-3.4-4.7-7.7-4.7-12.3
                                             c0-10.2,8.3-18.5,18.5-18.5s18.5,8.3,18.5,18.5c0,4.6-1.7,8.9-4.7,12.3c3,3.4,4.7,7.7,4.7,12.3
                                             C143.9,122.5,135.7,130.8,125.5,130.8z M125.5,70.8c-9.3,0-16.9,7.6-16.9,16.9c0,4.4,1.7,8.6,4.8,11.8l0.5,0.5l-0.5,0.5
                                             c-3.1,3.2-4.8,7.4-4.8,11.8c0,9.3,7.6,16.9,16.9,16.9s16.9-7.6,16.9-16.9c0-4.4-1.7-8.6-4.8-11.8l-0.5-0.5l0.5-0.5
-                                            c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z" />
-                                                </g>
-                                                <g>
-                                                    <rect x="82.8" y="82.1" class="st12" width="25.8" height="1.5" />
-                                                </g>
-                                                <g>
-                                                    <rect x="82.8" y="117.9" class="st12" width="26.1" height="1.5" />
-                                                </g>
-                                                <g>
-                                                    <rect x="142.4" y="82.1" class="st12" width="25.8" height="1.5" />
-                                                </g>
-                                                <g>
-                                                    <rect x="142" y="117.9" class="st12" width="26.2" height="1.5" />
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </g>
-                                    <g id="Back">
-                                    </g>
-                                </svg>
-                            </div>
-                            <div class="back">
-                                <svg version="1.1" id="cardback" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 750 471" style="enable-background:new 0 0 750 471;" xml:space="preserve">
-                                    <g id="Front">
-                                        <line class="st0" x1="35.3" y1="10.4" x2="36.7" y2="11" />
-                                    </g>
-                                    <g id="Back">
-                                        <g id="Page-1_2_">
-                                            <g id="amex_2_">
-                                                <path id="Rectangle-1_2_" class="darkcolor greydark" d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
-                                        C0,17.9,17.9,0,40,0z" />
-                                            </g>
-                                        </g>
-                                        <rect y="61.6" class="st2" width="750" height="78" />
-                                        <g>
-                                            <path class="st3" d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
-                                    C707.1,246.4,704.4,249.1,701.1,249.1z" />
-                                            <rect x="42.9" y="198.6" class="st4" width="664.1" height="10.5" />
-                                            <rect x="42.9" y="224.5" class="st4" width="664.1" height="10.5" />
-                                            <path class="st5" d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z" />
-                                        </g>
-                                        <text transform="matrix(1 0 0 1 621.999 227.2734)" id="svgsecurity" class="st6 st7">985</text>
-                                        <g class="st8">
-                                            <text transform="matrix(1 0 0 1 518.083 280.0879)" class="st9 st6 st10">security code</text>
-                                        </g>
-                                        <rect x="58.1" y="378.6" class="st11" width="375.5" height="13.5" />
-                                        <rect x="58.1" y="405.6" class="st11" width="421.7" height="13.5" />
-                                        <text transform="matrix(1 0 0 1 59.5073 228.6099)" id="svgnameback" class="st12 st13">John Doe</text>
-                                    </g>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-container">
-                        <div class="field-container">
-                            <label for="name">Name</label>
-                            <input id="name" maxlength="20" type="text">
-                        </div>
-                        <div class="field-container">
-                            <label for="cardnumber">Card Number</label><span id="generatecard">generate random</span>
-                            <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
-                            <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                
-                            </svg>
-                        </div>
-                        <div class="field-container">
-                            <label for="expirationdate">Expiration (mm/yy)</label>
-                            <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
-                        </div>
-                        <div class="field-container">
-                            <label for="securitycode">Security Code</label>
-                            <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
-                        </div>
-                    </div>
-                    <!-- partial -->
-                </div>
+                                            c3.1-3.2,4.8-7.4,4.8-11.8C142.4,78.4,134.8,70.8,125.5,70.8z"
+                          />
+                        </g>
+                        <g>
+                          <rect
+                            x="82.8"
+                            y="82.1"
+                            class="st12"
+                            width="25.8"
+                            height="1.5"
+                          />
+                        </g>
+                        <g>
+                          <rect
+                            x="82.8"
+                            y="117.9"
+                            class="st12"
+                            width="26.1"
+                            height="1.5"
+                          />
+                        </g>
+                        <g>
+                          <rect
+                            x="142.4"
+                            y="82.1"
+                            class="st12"
+                            width="25.8"
+                            height="1.5"
+                          />
+                        </g>
+                        <g>
+                          <rect
+                            x="142"
+                            y="117.9"
+                            class="st12"
+                            width="26.2"
+                            height="1.5"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <g id="Back"></g>
+                </svg>
+              </div>
+              <div class="back">
+                <svg
+                  version="1.1"
+                  id="cardback"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 750 471"
+                  style="enable-background: new 0 0 750 471"
+                  xml:space="preserve"
+                >
+                  <g id="Front">
+                    <line class="st0" x1="35.3" y1="10.4" x2="36.7" y2="11"/>
+                  </g>
+                  <g id="Back">
+                    <g id="Page-1_2_">
+                      <g id="amex_2_">
+                        <path
+                          id="Rectangle-1_2_"
+                          class="darkcolor greydark"
+                          d="M40,0h670c22.1,0,40,17.9,40,40v391c0,22.1-17.9,40-40,40H40c-22.1,0-40-17.9-40-40V40
+                                        C0,17.9,17.9,0,40,0z"
+                        />
+                      </g>
+                    </g>
+                    <rect y="61.6" class="st2" width="750" height="78"/>
+                    <g>
+                      <path
+                        class="st3"
+                        d="M701.1,249.1H48.9c-3.3,0-6-2.7-6-6v-52.5c0-3.3,2.7-6,6-6h652.1c3.3,0,6,2.7,6,6v52.5
+                                    C707.1,246.4,704.4,249.1,701.1,249.1z"
+                      />
+                      <rect
+                        x="42.9"
+                        y="198.6"
+                        class="st4"
+                        width="664.1"
+                        height="10.5"
+                      />
+                      <rect
+                        x="42.9"
+                        y="224.5"
+                        class="st4"
+                        width="664.1"
+                        height="10.5"
+                      />
+                      <path
+                        class="st5"
+                        d="M701.1,184.6H618h-8h-10v64.5h10h8h83.1c3.3,0,6-2.7,6-6v-52.5C707.1,187.3,704.4,184.6,701.1,184.6z"
+                      />
+                    </g>
+                    <text
+                      transform="matrix(1 0 0 1 621.999 227.2734)"
+                      id="svgsecurity"
+                      class="st6 st7"
+                    >
+                      985
+                    </text>
+                    <g class="st8">
+                      <text
+                        transform="matrix(1 0 0 1 518.083 280.0879)"
+                        class="st9 st6 st10"
+                      >
+                        security code
+                      </text>
+                    </g>
+                    <rect
+                      x="58.1"
+                      y="378.6"
+                      class="st11"
+                      width="375.5"
+                      height="13.5"
+                    />
+                    <rect
+                      x="58.1"
+                      y="405.6"
+                      class="st11"
+                      width="421.7"
+                      height="13.5"
+                    />
+                    <text
+                      transform="matrix(1 0 0 1 59.5073 228.6099)"
+                      id="svgnameback"
+                      class="st12 st13"
+                    >
+                      John Doe
+                    </text>
+                  </g>
+                </svg>
+              </div>
             </div>
-            <!-- / Step Content -->
-        </div>
-    </div>
-
-    <!-- Bottom Navigation -->
-    <div id="bottom_nav" class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md" *ngIf="step != 'complete'">
-        <div class="max-w-3xl mx-auto px-4">
-            <div class="flex justify-between">
-                <div class="w-1/2">
-                    <button *ngIf="step > 1" (click)="decStep()" class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border">Previous</button>
-                </div>
-
-                <div class="w-1/2 text-right">
-                    <button *ngIf="step < 3" (click)="incStep()" class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium">Next</button>
-
-                    <button id="complete" (click)="step = 'complete'" *ngIf="step === 3" class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium">Complete</button>
-                </div>
+          </div>
+          <div class="form-container">
+            <div class="field-container">
+              <label for="name">Name</label>
+              <input formControlName="holderName" id="name" maxlength="20" type="text"/>
             </div>
-        </div>
+            <div class="field-container">
+              <label for="cardnumber">Card Number</label
+              ><span id="generatecard">generate random</span>
+              <input
+                formControlName="cardNumber"
+                id="cardnumber"
+                type="text"
+                pattern="[0-9]*"
+                inputmode="numeric"
+              />
+              <svg
+                id="ccicon"
+                class="ccicon"
+                width="750"
+                height="471"
+                viewBox="0 0 750 471"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              ></svg>
+            </div>
+            <div class="field-container">
+              <label for="expirationdate">Expiration (mm/yy)</label>
+              <input
+                formControlName="cardExp"
+                id="expirationdate"
+                type="text"
+                pattern="[0-9]*"
+                inputmode="numeric"
+              />
+            </div>
+            <div class="field-container">
+              <label for="securitycode">Security Code</label>
+              <input
+                (input)="logForm()"
+                formControlName="cvv"
+                id="securitycode"
+                type="text"
+                pattern="[0-9]*"
+                inputmode="numeric"
+              />
+            </div>
+          </div>
+          <!-- partial -->
+        </form>
+      </div>
+      <!-- / Step Content -->
     </div>
-    <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div
+    id="bottom_nav"
+    class="fixed bottom-0 left-0 right-0 py-5 bg-white shadow-md"
+    *ngIf="step != 'complete'"
+  >
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="flex justify-between">
+        <div class="w-1/2">
+          <button
+            *ngIf="step > 1"
+            (click)="decStep()"
+            class="w-32 focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+          >
+            Previous
+          </button>
+        </div>
+
+        <div class="w-1/2 text-right">
+          <button
+            *ngIf="step < 3 && completeForm.get(formNames[step-1]).valid"
+            (click)="incStep()"
+            class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
+          >
+            Next
+          </button>
+
+          <button
+            id="complete"
+            (click)="step = 'complete'; submittoServer();"
+            *ngIf="step === 3 && completeForm.valid"
+            class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
+          >
+            Complete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- / Bottom Navigation https://placehold.co/300x300/e2e8f0/cccccc -->
 </div>

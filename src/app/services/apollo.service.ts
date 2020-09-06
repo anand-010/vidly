@@ -6,58 +6,50 @@ import { Apollo } from 'apollo-angular';
 import { gql } from '@apollo/client/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApolloService {
   videos: Observable<any[]>;
-  constructor(private apollo :Apollo) {
-    
-   }
-   
-   getOstypes(timemode:Number){
+  constructor(private apollo: Apollo) {}
+
+  getOstypes(timemode: Number) {
     return this.apollo.query({
-      query: gql(`query osTypes($uid:String,$timemode:Int){
-        osTypes(uid:$uid,timemode:$timemode){
+      query: gql(`query osTypes($timemode:Int){
+        osTypes(timemode:$timemode){
           names
           value
         }
       }`),
-      variables:{
-        uid:"1234",
-        timemode:timemode
-      }
+      variables: {
+        timemode: timemode,
+      },
+    });
+  }
 
-    })
-   }
-
-   getPlatformtypes(){
+  getPlatformtypes() {
     return this.apollo.query({
-      query: gql(`query platformTypes($uid:String,$timemode:Int){
-        platformTypes(uid:$uid,timemode:$timemode){
+      query: gql(`query platformTypes($timemode:Int){
+        platformTypes(timemode:$timemode){
           names
           value
         }
       }`),
-      variables:{
-        uid:"1234",
-        timemode:1
-      }
-
-    })
-   }
-   getCountry(timemode:Number){
+      variables: {
+        timemode: 1,
+      },
+    });
+  }
+  getCountry(timemode: Number) {
     return this.apollo.query({
-      query: gql(`query countries($uid:String,$timemode:Int){
-          countries(uid:$uid,timemode:$timemode){
+      query: gql(`query countries($timemode:Int){
+          countries(timemode:$timemode){
             count
             country
           }
       }`),
-      variables:{
-        uid:"1234",
-        timemode:timemode
-      }
-
-    })
-   }
+      variables: {
+        timemode: timemode,
+      },
+    });
+  }
 }

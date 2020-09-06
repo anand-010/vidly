@@ -7,18 +7,16 @@ import { gql } from '@apollo/client/core';
 import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VideosService {
   videos: Observable<any[]>;
-  constructor(private apollo :Apollo) {
-    
-   }
-   
-   getVideos(){
+  constructor(private apollo: Apollo) {}
+
+  getVideos() {
     return this.apollo.subscribe({
       query: gql(`subscription {
-        subscribeVideos(uid:"1234"){
+        subscribeVideos(uid:"p9nZEnXYovZacjDTVEFACUQVM5w1"){
           path
           playlist
           name
@@ -32,21 +30,20 @@ export class VideosService {
           uploaded_at
           thumbnail
         }
-      }`)
-    })
+      }`),
+    });
+  }
 
-   }
-
-   deleteVideo(id:String){
+  deleteVideo(id: String) {
     return this.apollo.subscribe({
       query: gql(`mutation deleteVideo($id:String){
         deleteVideo(id:$id){
           status
         }
       }`),
-      variables : {
-        id
-      }
-    })
-   }
+      variables: {
+        id,
+      },
+    });
+  }
 }
