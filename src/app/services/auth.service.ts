@@ -12,7 +12,7 @@ export class AuthService {
     try {
       let result = await this.auth.signInWithEmailAndPassword('anands9288907423@gmail.com','852456');
       console.log('result login', result);
-      
+
     } catch (error) {
       console.log('catch',error);
     }
@@ -54,10 +54,10 @@ export class AuthService {
           let Token:string = await User.getIdToken();
           console.log(" i think loged in ", Token);
           // Simple POST request with a JSON body and response type <any>
-          this.http.post<any>('http://localhost/login', { Token: Token }, { withCredentials:true }).subscribe(data => {
+          this.http.post<any>('http://localhost/login', { Token: Token }, { withCredentials: true }).subscribe(data => {
             console.log("response from server", data);
             resolve(data);
-        })
+        });
         }
       }).catch((error) => {
         window.alert(error.message);

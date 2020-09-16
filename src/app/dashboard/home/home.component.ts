@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { SocketService } from 'src/app/services/socket.service';
 import { VideosService } from 'src/app/services/videos.service';
 import * as Dropzone from 'dropzone';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,7 +37,6 @@ export class HomeComponent implements OnInit {
     },
   ];
   constructor(
-    private socket: SocketService,
     private videoservice: VideosService,
     private _snackBar: MatSnackBar,
     public dialog: MatDialog
@@ -46,16 +44,6 @@ export class HomeComponent implements OnInit {
     this.upload_show = false;
   }
   ngOnInit(): void {
-    // this.socket.listen('videos').subscribe((data)=>{
-    //   this.videos = data;
-    //   console.log("os data, ",this.videos);
-    // })
-    // this.socket.listen('vid_update').subscribe((data)=>{
-    //   this.videos.unshift(data);
-    //   // this.videos = data;
-    //   console.log("update , ",data);
-    // })
-
     this.videoservice.getVideos().subscribe((viddata: any) => {
       console.log(viddata);
       this.videos = viddata.data.subscribeVideos;

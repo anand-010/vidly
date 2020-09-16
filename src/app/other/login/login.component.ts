@@ -25,7 +25,7 @@ login_form;
           $('.body').css('background', '#e0b722');
           $(".veen .login-btn button").removeClass('active');
           $(this).addClass('active');
-  
+
       });
       $(".veen .login-btn button").click(function() {
           $('.veen .wrapper').removeClass('move');
@@ -48,14 +48,19 @@ login_form;
   //   password: ''
   // });
   }
-  
+
 async LoginContinue(){
   console.log(this.login_form);
   try {
-    await this.auth.SignIn(this.login_form.mail, this.login_form.password);
-    this.router.navigate(['/info']);
+    let result: any = await this.auth.SignIn(this.login_form.mail, this.login_form.password);
+    if (result.isInfoEntered){
+      this.router.navigate(['/dashboard/home']);
+    }
+    else {
+      this.router.navigate(['/info']);
+    }
   } catch (error) {
-    
+    throw error;
   }
 
 }
