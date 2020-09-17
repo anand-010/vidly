@@ -6,35 +6,40 @@ import { AnalyticsComponent } from './dashboard/analytics/analytics.component';
 import { LoginComponent } from './other/login/login.component';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { InfoComponent } from './other/info/info.component';
+import {LandingComponent} from './other/landing/landing.component';
 
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToSendEmail = () => redirectLoggedInTo(['send-email']);
 
 const routes: Routes = [
-  { path:"dashboard", 
+  { path: 'dashboard',
   component : DashboardComponent,
   canActivate : [AngularFireAuthGuard],
-  children :[
+  children : [
     {
-      path:"home",
-      component:HomeComponent
+      path: 'home',
+      component: HomeComponent
     },
     {
-      path:"analytics",
-      component:AnalyticsComponent
+      path: 'analytics',
+      component: AnalyticsComponent
     }
   ]
 }
-,{
-  path: "login",
-  component:LoginComponent,
+, {
+  path: 'login',
+  component: LoginComponent,
   data: { authGuardPipe: redirectLoggedInToSendEmail }
 },
 {
-  path: "info",
-  component:InfoComponent,
-}
+  path: 'info',
+  component: InfoComponent,
+},
+  {
+    path: '',
+    component: LandingComponent
+  }
 ];
 
 @NgModule({

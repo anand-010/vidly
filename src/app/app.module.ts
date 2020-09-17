@@ -29,6 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatTabsModule } from '@angular/material/tabs'
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import {PackageSelectorComponent} from './other/package-selector/package-selector.component';
+import {LandingComponent} from './other/landing/landing.component';
 @NgModule({
     declarations: [
         DashboardComponent,
@@ -41,7 +42,8 @@ import {PackageSelectorComponent} from './other/package-selector/package-selecto
         InfoComponent,
         CopyClipboardDirective,
         CodepopupComponent,
-        PackageSelectorComponent
+        PackageSelectorComponent,
+        LandingComponent
     ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
